@@ -10,6 +10,7 @@
 #import "UzysWrapperPickerController.h"
 #import "UzysGroupPickerView.h"
 #import <ImageIO/ImageIO.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface UzysAssetsPickerController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 //View
@@ -1204,7 +1205,7 @@
 {
     return NO;
 }
--(NSUInteger)supportedInterfaceOrientations
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
