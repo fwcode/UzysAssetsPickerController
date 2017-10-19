@@ -10,6 +10,7 @@
 #import "UzysAssetsPickerController_Configuration.h"
 #import "UzysAppearanceConfig.h"
 #import <CoreLocation/CoreLocation.h>
+#import <Photos/Photos.h>
 
 @class UzysAssetsPickerController;
 @protocol UzysAssetsPickerControllerDelegate<NSObject>
@@ -20,7 +21,6 @@
 @end
 
 @interface UzysAssetsPickerController : UIViewController
-@property (nonatomic, strong) ALAssetsFilter *assetsFilter;
 @property (nonatomic, strong) CLLocation * location;
 @property (nonatomic, assign) NSInteger maximumNumberOfSelectionVideo;
 @property (nonatomic, assign) NSInteger maximumNumberOfSelectionPhoto;
@@ -28,7 +28,7 @@
 @property (nonatomic, assign) NSInteger maximumNumberOfSelectionMedia;
 
 @property (nonatomic, weak) id <UzysAssetsPickerControllerDelegate> delegate;
-+ (ALAssetsLibrary *)defaultAssetsLibrary;
++ (PHPhotoLibrary *)defaultAssetsLibrary;
 /**
  *  setup the appearance, including the all the properties in UzysAppearanceConfig, check UzysAppearanceConfig.h out for details.
  *

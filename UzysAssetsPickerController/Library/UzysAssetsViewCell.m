@@ -10,9 +10,9 @@
 #import "UzysAppearanceConfig.h"
 
 @interface UzysAssetsViewCell()
-@property (nonatomic, strong) ALAsset *asset;
+@property (nonatomic, strong) PHAsset *asset;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, copy) NSString *type;
+@property (nonatomic, assign) PHAssetMediaType type;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) UIImage *videoImage;
 @end
@@ -55,12 +55,20 @@ static CGFloat thumnailLength;
     }
     return self;
 }
-- (void)applyData:(ALAsset *)asset
+- (void)applyData:(PHAsset *)asset
 {
     self.asset  = asset;
-    self.image  = [UIImage imageWithCGImage:asset.thumbnail];
-    self.type   = [asset valueForProperty:ALAssetPropertyType];
-    self.title  = [UzysAssetsViewCell getTimeStringOfTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
+    [[PHImageManager defaultManager]
+     requestImageForAsset:(PHAsset *)_asset
+     targetSize:CGSizeMake(80, 80)
+     contentMode:PHImageContentModeAspectFill
+     options:nil
+     resultHandler:^(UIImage *result, NSDictionary *info) {
+         // sadly result is not a squared image
+         self.image  = result;
+     }];
+    self.type   = asset.mediaType;
+//    self.title  = [UzysAssetsViewCell getTimeStringOfTimeInterval:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]];
 }
 
 - (void)setSelected:(BOOL)selected
@@ -102,7 +110,7 @@ static CGFloat thumnailLength;
     [self.image drawInRect:CGRectMake(-.5f, -1.0f, thumnailLength+1.5f, thumnailLength+1.0f)];
     
     // Video title
-    if ([self.type isEqual:ALAssetTypeVideo])
+    if (self.type == PHAssetMediaTypeVideo)
     {
         // Create a gradient from transparent to black
         CGFloat colors [] =

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UzysAssetsPickerController_Configuration.h"
+#import <Photos/Photos.h>
 @interface UzysAssetsViewCell : UICollectionViewCell
-- (void)applyData:(ALAsset *)asset;
+- (void)applyData:(PHAsset *)asset;
 @end

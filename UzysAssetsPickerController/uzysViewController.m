@@ -69,10 +69,7 @@
     self.btnImageAndVideo.center = CGPointMake(self.view.center.x, self.btnImageAndVideo.center.y);
     [self.view addSubview:self.btnImageAndVideo];
 }
--(void)viewDidAppear:(BOOL)animated
-{
 
-}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -181,11 +178,11 @@
 
 - (void)uzysAssetsPickerControllerDidExceedMaximumNumberOfSelection:(UzysAssetsPickerController *)picker
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                    message:NSLocalizedStringFromTable(@"Exceed Maximum Number Of Selection", @"UzysAssetsPickerController", nil)
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedStringFromTable(@"Exceed Maximum Number Of Selection", @"UzysAssetsPickerController", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alert dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:NULL];
 }
 @end

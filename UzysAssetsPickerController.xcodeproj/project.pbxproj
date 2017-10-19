@@ -34,6 +34,8 @@
 		95F443C218AC62D10088FC13 /* UzysGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F443C118AC62D10088FC13 /* UzysGroupViewCell.m */; };
 		CCE0A1C519AC197F00A5BE3A /* UIImage+UzysExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE0A1C419AC197F00A5BE3A /* UIImage+UzysExtension.m */; };
 		CCE0A1C819AC1F0200A5BE3A /* UzysAppearanceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE0A1C719AC1F0200A5BE3A /* UzysAppearanceConfig.m */; };
+		F13D9E921F9776B600422947 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F13D9E901F9776B600422947 /* PhotosUI.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		F13D9E931F9776B600422947 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F13D9E911F9776B600422947 /* Photos.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,8 @@
 		CCE0A1C419AC197F00A5BE3A /* UIImage+UzysExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UzysExtension.m"; sourceTree = "<group>"; };
 		CCE0A1C619AC1F0200A5BE3A /* UzysAppearanceConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UzysAppearanceConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		CCE0A1C719AC1F0200A5BE3A /* UzysAppearanceConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UzysAppearanceConfig.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F13D9E901F9776B600422947 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		F13D9E911F9776B600422947 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F13D9E921F9776B600422947 /* PhotosUI.framework in Frameworks */,
+				F13D9E931F9776B600422947 /* Photos.framework in Frameworks */,
 				956BBB55193460220017396E /* AVFoundation.framework in Frameworks */,
 				95F443B518AB75D20088FC13 /* MobileCoreServices.framework in Frameworks */,
 				95F4439A18AB575B0088FC13 /* AssetsLibrary.framework in Frameworks */,
@@ -139,6 +145,8 @@
 		95F4435D18AB4AEF0088FC13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F13D9E911F9776B600422947 /* Photos.framework */,
+				F13D9E901F9776B600422947 /* PhotosUI.framework */,
 				956BBB54193460220017396E /* AVFoundation.framework */,
 				95F443B418AB75D20088FC13 /* MobileCoreServices.framework */,
 				95F4439918AB575B0088FC13 /* AssetsLibrary.framework */,
@@ -485,7 +493,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UzysAssetsPickerController/UzysAssetsPickerController-Prefix.pch";
 				INFOPLIST_FILE = "UzysAssetsPickerController/UzysAssetsPickerController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uzys.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -501,7 +509,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UzysAssetsPickerController/UzysAssetsPickerController-Prefix.pch";
 				INFOPLIST_FILE = "UzysAssetsPickerController/UzysAssetsPickerController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uzys.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
