@@ -308,13 +308,12 @@
     else
         [self.groups removeAllObjects];
     
-    
-    __weak typeof(self) weakSelf = self;
-
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
     options.predicate = [NSPredicate predicateWithFormat:@"mediaType = %d",PHAssetMediaTypeImage];
+    
     PHFetchResult *result = [PHAsset fetchAssetsWithOptions:options];
+    
     self.assets = [[NSMutableArray alloc] init];
     [result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self.assets addObject:obj];
@@ -322,61 +321,7 @@
             [self reloadData];
         }
     }];
-    NSLog(@"");
-//    ALAssetsFilter *assetsFilter = self.assetsFilter; // number of Asset 메쏘드 호출 시에 적용.
-//
-//    ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-//        __strong typeof(weakSelf) strongSelf = weakSelf;
-//        if (group)
-//        {
-//            [group setAssetsFilter:assetsFilter];
-//            NSInteger groupType = [[group valueForProperty:ALAssetsGroupPropertyType] integerValue];
-//            if(groupType == ALAssetsGroupSavedPhotos)
-//            {
-//                [strongSelf.groups insertObject:group atIndex:0];
-//                if(doSetupAsset)
-//                {
-//                    strongSelf.assetsGroup = group;
-//                    [strongSelf setupAssets:nil];
-//                }
-//            }
-//            else
-//            {
-//                if (group.numberOfAssets > 0)
-//                    [strongSelf.groups addObject:group];
-//            }
-//        }
-//        //traverse to the end, so reload groupPicker.
-//        else
-//        {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [weakSelf.groupPicker reloadData];
-//                NSUInteger selectedIndex = [weakSelf indexOfAssetGroup:weakSelf.assetsGroup inGroups:weakSelf.groups];
-//                if (selectedIndex != NSNotFound) {
-//                    [weakSelf.groupPicker.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:selectedIndex inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
-//                }
-//                if(endblock)
-//                    endblock();
-//            });
-//        }
-//    };
-//
-//    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
-//        __strong typeof(weakSelf) strongSelf = weakSelf;
-//        //접근이 허락 안되었을 경우
-//        [strongSelf showNotAllowed];
-//        strongSelf.segmentedControl.enabled = NO;
-//        strongSelf.btnDone.enabled = NO;
-//        strongSelf.btnCamera.enabled = NO;
-//        [strongSelf setTitle:NSLocalizedStringFromTable(@"Not Allowed", @"UzysAssetsPickerController",nil)];
-//        //        [self.btnTitle setTitle:NSLocalizedStringFromTable(@"Not Allowed", @"UzysAssetsPickerController",nil) forState:UIControlStateNormal];
-//        [strongSelf.btnTitle setImage:nil forState:UIControlStateNormal];
-//
-//    };
-//
-//    [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll
-//                                      usingBlock:resultsBlock
-//                                    failureBlock:failureBlock];
+    
 }
 
 - (void)setupAssets:(voidBlock)successBlock
@@ -644,12 +589,6 @@
 - (void)finishPickingAssets
 {
     NSMutableArray *assets = [[NSMutableArray alloc] initWithArray:self.orderedSelectedItem];
-    //
-    //    for (NSIndexPath *index in self.orderedSelectedItem)
-    //    {
-    //        [assets addObject:[self.assets objectAtIndex:index.item]];
-    //    }
-    //
     if([assets count]>0)
     {
         UzysAssetsPickerController *picker = (UzysAssetsPickerController *)self;
