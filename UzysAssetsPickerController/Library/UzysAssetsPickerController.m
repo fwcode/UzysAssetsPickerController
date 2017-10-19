@@ -626,15 +626,14 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ALAsset *selectedAsset = [self.assets objectAtIndex:indexPath.item];
+    PHAsset *selectedAsset = [self.assets objectAtIndex:indexPath.item];
     [self.orderedSelectedItem addObject:selectedAsset];
     [self setAssetsCountWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ALAsset *deselectedAsset = [self.assets objectAtIndex:indexPath.item];
-    
+    PHAsset *deselectedAsset = [self.assets objectAtIndex:indexPath.item];
     [self.orderedSelectedItem removeObject:deselectedAsset];
     [self setAssetsCountWithSelectedIndexPaths:collectionView.indexPathsForSelectedItems];
 }

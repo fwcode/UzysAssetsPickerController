@@ -58,9 +58,10 @@ static CGFloat thumnailLength;
 - (void)applyData:(PHAsset *)asset
 {
     self.asset  = asset;
+    CGSize size = CGSizeMake(self.contentView.frame.size.width * 3, self.contentView.frame.size.height * 3);
     [[PHImageManager defaultManager]
      requestImageForAsset:(PHAsset *)_asset
-     targetSize:CGSizeMake(80, 80)
+     targetSize:size
      contentMode:PHImageContentModeAspectFill
      options:nil
      resultHandler:^(UIImage *result, NSDictionary *info) {
