@@ -618,22 +618,6 @@
     return [queryDict copy];
 }
 
-- (NSUInteger)indexOfAssetGroup:(ALAssetsGroup *)group inGroups:(NSArray *)groups
-{
-    NSString *targetGroupId = [group valueForProperty:ALAssetsGroupPropertyPersistentID];
-    __block NSUInteger index = NSNotFound;
-    [groups enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        ALAssetsGroup *g = obj;
-        NSString *gid = [g valueForProperty:ALAssetsGroupPropertyPersistentID];
-        if ([gid isEqualToString:targetGroupId])
-        {
-            index = idx;
-            *stop = YES;
-        }
-        
-    }];
-    return index;
-}
 
 - (NSString *)getUTCFormattedDate:(NSDate *)localDate {
     static NSDateFormatter *dateFormatter = nil;
@@ -842,8 +826,12 @@
             if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 NSString *title = NSLocalizedStringFromTable(@"Error", @"UzysAssetsPickerController", nil);
                 NSString *message = NSLocalizedStringFromTable(@"Device has no camera", @"UzysAssetsPickerController", nil);
-                UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [myAlertView show];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [alert dismissViewControllerAnimated:YES completion:NULL];
+                }];
+                [alert addAction:okAction];
+                [self presentViewController:alert animated:YES completion:NULL];
             }
             else
             {
@@ -875,8 +863,12 @@
                     
                     NSString *title = NSLocalizedStringFromTable(@"Permission Denied", @"UzysAssetsPickerController", nil);
                     NSString *message = NSLocalizedStringFromTable(@"Camera Permission required for this action.", @"UzysAssetsPickerController", nil);
-                    UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    [myAlertView show];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [alert dismissViewControllerAnimated:YES completion:NULL];
+                    }];
+                    [alert addAction:okAction];
+                    [self presentViewController:alert animated:YES completion:NULL];
                     
                     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
                         if(granted){
@@ -899,9 +891,13 @@
                             NSLog(@"Not granted access to %@", AVMediaTypeVideo);
                             NSString *title = NSLocalizedStringFromTable(@"Permission Denied", @"UzysAssetsPickerController", nil);
                             NSString *message = NSLocalizedStringFromTable(@"Camera Permission required for this action.", @"UzysAssetsPickerController", nil);
-                            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                            [myAlertView show];
-                            
+                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                [alert dismissViewControllerAnimated:YES completion:NULL];
+                            }];
+                            [alert addAction:okAction];
+                            [self presentViewController:alert animated:YES completion:NULL];
+
                         }
                     }];
                 }
@@ -910,9 +906,12 @@
                     NSLog(@"%@", @"Restricted, normally won't happen");
                     NSString *title = NSLocalizedStringFromTable(@"Permission Denied", @"UzysAssetsPickerController", nil);
                     NSString *message = NSLocalizedStringFromTable(@"Camera Permission required for this action.", @"UzysAssetsPickerController", nil);
-                    UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    [myAlertView show];
-                    
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [alert dismissViewControllerAnimated:YES completion:NULL];
+                    }];
+                    [alert addAction:okAction];
+                    [self presentViewController:alert animated:YES completion:NULL];
                 }
                 else if(authStatus == AVAuthorizationStatusNotDetermined)
                 {
@@ -926,9 +925,12 @@
                             NSLog(@"Not granted access to %@", AVMediaTypeVideo);
                             NSString *title = NSLocalizedStringFromTable(@"Permission Denied", @"UzysAssetsPickerController", nil);
                             NSString *message = NSLocalizedStringFromTable(@"Camera Permission required for this action.", @"UzysAssetsPickerController", nil);
-                            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                            [myAlertView show];
-                            
+                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                [alert dismissViewControllerAnimated:YES completion:NULL];
+                            }];
+                            [alert addAction:okAction];
+                            [self presentViewController:alert animated:YES completion:NULL];
                         }
                     }];
                 }
@@ -937,9 +939,12 @@
                     NSLog(@"%@", @"Camera access unknown error.");
                     NSString *title = NSLocalizedStringFromTable(@"Permission Access Error", @"UzysAssetsPickerController", nil);
                     NSString *message = NSLocalizedStringFromTable(@"Unknown Error Occured", @"UzysAssetsPickerController", nil);
-                    UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                    [myAlertView show];
-                    
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [alert dismissViewControllerAnimated:YES completion:NULL];
+                    }];
+                    [alert addAction:okAction];
+                    [self presentViewController:alert animated:YES completion:NULL];
                 }
                 
                 
@@ -1061,7 +1066,6 @@
             [self changeAssetType:YES endBlock:^{
                 __strong typeof(weakSelf) strongSelf = weakSelf;
                 UIImage *image = info[UIImagePickerControllerOriginalImage];
-                [[NSNotificationCenter defaultCenter] removeObserver:strongSelf name:ALAssetsLibraryChangedNotification object:nil];
                 
                 NSMutableDictionary *metaData = [NSMutableDictionary dictionaryWithDictionary:info[UIImagePickerControllerMediaMetadata]];
                 [self addGPSLocation:metaData];
@@ -1079,7 +1083,6 @@
         else
         {
             UIImage *image = info[UIImagePickerControllerOriginalImage];
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:ALAssetsLibraryChangedNotification object:nil];
             
             NSMutableDictionary *metaData = [NSMutableDictionary dictionaryWithDictionary:info[UIImagePickerControllerMediaMetadata]];
             [self addGPSLocation:metaData];
