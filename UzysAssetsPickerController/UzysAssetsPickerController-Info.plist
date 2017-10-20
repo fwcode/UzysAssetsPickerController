@@ -37,6 +37,10 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs permission to access your Photo Library</string>
+	<string>This app needs permission to access the device&apos;s Photo Library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs permission to access the device&apos;s Camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs permission to access the device&apos;s Microphone</string>
 </dict>
 </plist>

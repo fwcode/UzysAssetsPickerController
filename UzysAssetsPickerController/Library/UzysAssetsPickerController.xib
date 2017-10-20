@@ -52,7 +52,7 @@
                                 <action selector="btnAction:" destination="-1" eventType="touchUpInside" id="yp1-Q0-WuH"/>
                             </connections>
                         </button>
-                        <button opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rd5-Z7-vdI" userLabel="Button - Title">
+                        <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rd5-Z7-vdI" userLabel="Button - Title">
                             <rect key="frame" x="145" y="23" width="30" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="pid-dK-XVP"/>

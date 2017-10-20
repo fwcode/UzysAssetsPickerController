@@ -27,6 +27,8 @@ static UIImage *checkedIcon;
 static UIImage *uncheckedIcon;
 static UIColor *selectedColor;
 static CGFloat thumnailLength;
+
+
 + (void)initialize
 {
     UzysAppearanceConfig *appearanceConfig = [UzysAppearanceConfig sharedConfig];

@@ -103,6 +103,8 @@
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if (status != PHAuthorizationStatusAuthorized) {
             [self dismissViewControllerAnimated:YES completion:NULL];
+        } else {
+            [[self.class defaultAssetsLibrary] registerChangeObserver:self];
         }
     }];
 }
@@ -296,6 +298,23 @@
         
     }
 }
+- (void)fetchAndReload:(PHAssetMediaType)type {
+    PHFetchOptions *options = [[PHFetchOptions alloc] init];
+    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+    options.predicate = [NSPredicate predicateWithFormat:@"mediaType = %d",PHAssetMediaTypeImage];
+    
+    PHFetchResult *result = [PHAsset fetchAssetsWithOptions:options];
+    
+    self.assets = [[NSMutableArray alloc] init];
+    [result enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.assets addObject:obj];
+        if (result.lastObject == obj) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self reloadData];
+            });
+        }
+    }];
+}
 - (void)setupGroup:(voidBlock)endblock withSetupAsset:(BOOL)doSetupAsset
 {
     if (!self.assetsLibrary)
@@ -307,21 +326,7 @@
         self.groups = [[NSMutableArray alloc] init];
     else
         [self.groups removeAllObjects];
-    
-    PHFetchOptions *options = [[PHFetchOptions alloc] init];
-    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    options.predicate = [NSPredicate predicateWithFormat:@"mediaType = %d",PHAssetMediaTypeImage];
-    
-    PHFetchResult *result = [PHAsset fetchAssetsWithOptions:options];
-    
-    self.assets = [[NSMutableArray alloc] init];
-    [result enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self.assets addObject:obj];
-        if (*stop == YES) {
-            [self reloadData];
-        }
-    }];
-    
+    [self fetchAndReload:PHAssetMediaTypeImage];
 }
 
 - (void)setupAssets:(voidBlock)successBlock
@@ -672,6 +677,7 @@
 #pragma mark - PHPhotoLibraryChangeObserver
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
+    [self fetchAndReload:PHAssetMediaTypeImage];
 //    __weak typeof(self) weakSelf = self;
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //        __strong typeof(self) strongSelf = weakSelf;
@@ -946,9 +952,6 @@
                     [alert addAction:okAction];
                     [self presentViewController:alert animated:YES completion:NULL];
                 }
-                
-                
-                //
             }
         }
             break;
@@ -1086,6 +1089,13 @@
             
             NSMutableDictionary *metaData = [NSMutableDictionary dictionaryWithDictionary:info[UIImagePickerControllerMediaMetadata]];
             [self addGPSLocation:metaData];
+            
+            [self.assetsLibrary performChanges:^{
+                PHAssetChangeRequest *changeRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+                NSLog(@"%@",changeRequest);
+            } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                [self fetchAndReload:PHAssetMediaTypeImage];
+            }];
             
 //            [self.assetsLibrary writeImageToSavedPhotosAlbum:image.CGImage metadata:metaData completionBlock:^(NSURL *assetURL, NSError *error) {
 //                __strong typeof(weakSelf) strongSelf = weakSelf;
