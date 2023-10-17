@@ -102,7 +102,9 @@
     [self initNoAssetView];
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if (status != PHAuthorizationStatusAuthorized) {
-            [self dismissViewControllerAnimated:YES completion:NULL];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:NULL];
+            });
         } else {
             [[self.class defaultAssetsLibrary] registerChangeObserver:self];
         }
